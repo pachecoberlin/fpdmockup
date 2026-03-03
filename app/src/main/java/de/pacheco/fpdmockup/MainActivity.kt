@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.EditText
@@ -102,6 +103,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideSystemUI() {
         Log.d(TAG, "hideSystemUI called")
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         val controller = WindowInsetsControllerCompat(window, window.decorView)
         controller.hide(WindowInsetsCompat.Type.systemBars())
         controller.systemBarsBehavior =
