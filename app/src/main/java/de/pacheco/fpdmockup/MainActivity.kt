@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
@@ -22,6 +23,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 
 class MainActivity : AppCompatActivity() {
+    private val TAG = "FPDmockup"
     private var player: ExoPlayer? = null
     private var videoContainer: FrameLayout? = null
     private var hideUi: Button? = null
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     private var mediaItem21_9: MediaItem = spring219
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d(TAG, "onCreate called")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         hideSystemUI()
@@ -77,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         changeVideo = findViewById<View?>(R.id.changeVideo)
 
         startPlayer()
+        getMetrics()
         setupButtons()
         setupTextWatchers()
         setupSwitch()
@@ -84,6 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startPlayer() {
+        Log.d(TAG, "startPlayer called")
         player = ExoPlayer.Builder(this).build()
         playerView?.setPlayer(player)
         //      val videoUri: Uri =
@@ -96,6 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideSystemUI() {
+        Log.d(TAG, "hideSystemUI called")
         val controller = WindowInsetsControllerCompat(window, window.decorView)
         controller.hide(WindowInsetsCompat.Type.systemBars())
         controller.systemBarsBehavior =
@@ -103,6 +109,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
+        Log.d(TAG, "setupButtons called")
         changeVideo?.setOnClickListener { _ ->
             changeVideo()
         }
@@ -124,6 +131,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideUi() {
+        Log.d(TAG, "hideUi called")
         val ui = findViewById<View?>(R.id.ui)
         if (ui?.visibility == View.INVISIBLE) {
             ui.visibility = View.VISIBLE
@@ -135,6 +143,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeVideo() {
+        Log.d(TAG, "changeVideo called")
         if (mediaItem16_9 == spring169) {
             mediaItem16_9 = sintel169
             mediaItem21_9 = sintel219
@@ -146,6 +155,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupTextWatchers() {
+        Log.d(TAG, "setupTextWatchers called")
         val textWatcher: TextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -160,10 +170,13 @@ class MainActivity : AppCompatActivity() {
         heightInput?.addTextChangedListener(textWatcher)
         aspectRatioHeightInput?.addTextChangedListener(textWatcher)
         aspectRatioWidthInput?.addTextChangedListener(textWatcher)
+    }
 
-//beides falsch wenn die im AOSP falsch eingetragen sind
-//      val densityDpi = getResources().getDisplayMetrics().densityDpi
-//        val densityDpi = DisplayMetrics.DENSITY_DEFAULT * windowManager.getCurrentWindowMetrics().getDensity()
+    private fun getMetrics() {
+        Log.d(TAG, "getMetrics called")
+        //beides falsch wenn die im AOSP falsch eingetragen sind
+        //      val densityDpi = getResources().getDisplayMetrics().densityDpi
+        //        val densityDpi = DisplayMetrics.DENSITY_DEFAULT * windowManager.getCurrentWindowMetrics().getDensity()
         val metrics = DisplayMetrics()
         windowManager.getDefaultDisplay().getRealMetrics(metrics)
         val densityDpi = metrics.ydpi
@@ -171,6 +184,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSwitch() {
+        Log.d(TAG, "setupSwitch called")
         formatSwitch?.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
             formatSwitch?.setText(if (isChecked) "21:9" else "16:9")
             updatePlayer()
@@ -178,6 +192,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateBoxFromInputs() {
+        Log.d(TAG, "updateBoxFromInputs called")
         try {
             val heightCm: Double = heightInput?.getText().toString().toDouble()
             val aspectRatioWidth: Double = aspectRatioWidthInput?.getText().toString().toDouble()
@@ -190,6 +205,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateBoxSize(
         heightCm: Double, aspectRatioWidth: Double, aspectRatioHeight: Double
     ) {
+        Log.d(TAG, "updateBoxSize called")
         val densityDpi = dpi?.text.toString().toFloat()
         val heightPx: Double = heightCm * densityDpi / 2.54
         val widthPx = heightPx * (aspectRatioWidth / aspectRatioHeight)
@@ -204,6 +220,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateTextFields(
         heightCm: Double, aspectRatioWidth: Double, aspectRatioHeight: Double
     ) {
+        Log.d(TAG, "updateTextFields called")
         if (isTypingText) return
         heightInput?.setText(heightCm.toString())
         aspectRatioWidthInput?.setText(aspectRatioWidth.toString())
@@ -211,6 +228,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updatePlayer() {
+        Log.d(TAG, "updatePlayer called")
         val currentPosition = player?.currentPosition ?: 0L
         val wasPlaying = player?.isPlaying ?: true
         if ("21:9" == formatSwitch?.getText()) {
@@ -224,6 +242,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        Log.d(TAG, "onDestroy called")
         super.onDestroy()
         player?.release()
     }
