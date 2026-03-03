@@ -138,9 +138,11 @@ class MainActivity : AppCompatActivity() {
         if (ui?.visibility == View.INVISIBLE) {
             ui.visibility = View.VISIBLE
             hideUi?.setTextColor(ContextCompat.getColor(this, R.color.white))
+            hideUi?.text="Hide UI"
         } else {
             ui?.visibility = View.INVISIBLE
             hideUi?.setTextColor(ContextCompat.getColor(this, R.color.halfblack))
+            hideUi?.text="Show UI"
         }
     }
 

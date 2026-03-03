@@ -30,20 +30,99 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:fitsSystemWindows="true"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:fitsSystemWindows="true">
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <Button
             android:id="@+id/hideUI"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#00000000"
             android:text="Hide UI"
             android:textColor="@color/white"
             android:textSize="8sp" />
+
+        <LinearLayout
+            android:id="@+id/ui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp"
+                android:text="DPI:"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <EditText
+                android:id="@+id/dpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="DPI"
+                android:inputType="numberDecimal"
+                android:minWidth="40dp"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp"
+                android:text="Height (cm):"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <EditText
+                android:id="@+id/height_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Height (cm)"
+                android:inputType="numberDecimal"
+                android:minWidth="40dp"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp"
+                android:text="aspect ratio:"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <EditText
+                android:id="@+id/aspect_ratio_width_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Breite"
+                android:inputType="numberDecimal"
+                android:minWidth="40dp"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp"
+                android:text="/"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <EditText
+                android:id="@+id/aspect_ratio_height_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Höhe"
+                android:inputType="numberDecimal"
+                android:minWidth="40dp"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+        </LinearLayout>
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
@@ -52,87 +131,16 @@
             android:scrollbars="horizontal">
 
             <LinearLayout
-                android:id="@+id/ui"
+                android:id="@+id/ui2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="4dp"
-                    android:text="DPI:"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <EditText
-                    android:id="@+id/dpi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="DPI"
-                    android:inputType="numberDecimal"
-                    android:minWidth="40dp"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="4dp"
-                    android:text="Height (cm):"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <EditText
-                    android:id="@+id/height_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Height (cm)"
-                    android:inputType="numberDecimal"
-                    android:minWidth="40dp"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="4dp"
-                    android:text="aspect ratio:"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <EditText
-                    android:id="@+id/aspect_ratio_width_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Breite"
-                    android:inputType="numberDecimal"
-                    android:minWidth="40dp"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="4dp"
-                    android:text="/"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <EditText
-                    android:id="@+id/aspect_ratio_height_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Höhe"
-                    android:inputType="numberDecimal"
-                    android:minWidth="40dp"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
 
                 <Button
                     android:id="@+id/button_12cm_21_9"
-                    style="?android:attr/buttonStyleSmall"
+                    style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
@@ -142,7 +150,7 @@
 
                 <Button
                     android:id="@+id/button_12cm_16_9"
-                    style="?android:attr/buttonStyleSmall"
+                    style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
@@ -152,7 +160,7 @@
 
                 <Button
                     android:id="@+id/button_15cm_17_5_9"
-                    style="?android:attr/buttonStyleSmall"
+                    style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
@@ -162,7 +170,7 @@
 
                 <Button
                     android:id="@+id/button_12cm_17_5_9"
-                    style="?android:attr/buttonStyleSmall"
+                    style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
@@ -185,16 +193,18 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="16:9"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
                     android:textColor="@color/white"
-                    android:textSize="8sp" />
+                    android:textSize="11sp" />
 
                 <Button
                     android:id="@+id/changeVideo"
-                    style="?android:attr/buttonStyleSmall"
+                    style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
-                    android:text="Change"
+                    android:text="Change Video"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
             </LinearLayout>
