@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity() {
         val params: RelativeLayout.LayoutParams =
             RelativeLayout.LayoutParams(widthPx.toInt(), heightPx.toInt())
         params.leftMargin = (getResources().getDisplayMetrics().widthPixels - widthPx.toInt()) / 2
-        params.topMargin = (getResources().getDisplayMetrics().heightPixels - heightPx.toInt())
+        //params.topMargin = (getResources().getDisplayMetrics().heightPixels - heightPx.toInt())
         videoContainer?.setLayoutParams(params)
         updateTextFields(heightCm, aspectRatioWidth, aspectRatioHeight)
     }
