@@ -157,42 +157,52 @@
 
 
                 <Button
-                    android:id="@+id/button_12cm_21_9"
+                    android:id="@+id/button_184_16_9"
                     style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
-                    android:text="12cm 21:9"
+                    android:text="18,4\u2033 16:9"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
 
                 <Button
-                    android:id="@+id/button_12cm_16_9"
+                    android:id="@+id/button_195_16_9"
                     style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
-                    android:text="12cm 16:9"
+                    android:text="19,5\u2033 16:9"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
 
                 <Button
-                    android:id="@+id/button_15cm_17_5_9"
+                    android:id="@+id/button_214_16_9"
                     style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
-                    android:text="15cm 17,5:9"
+                    android:text="21,4\u2033 16:9"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
 
                 <Button
-                    android:id="@+id/button_12cm_17_5_9"
+                    android:id="@+id/button_195_21_9"
                     style="@style/SmallButtonTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00000000"
-                    android:text="12cm 17,5:9"
+                    android:text="19,5\u2033 21:9"
+                    android:textColor="@color/white"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/button_203_21_9"
+                    style="@style/SmallButtonTransparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#00000000"
+                    android:text="20,3\u2033 21:9"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
 
@@ -216,15 +226,6 @@
                     android:textColor="@color/white"
                     android:textSize="11sp" />
 
-                <Button
-                    android:id="@+id/changeVideo"
-                    style="@style/SmallButtonTransparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00000000"
-                    android:text="Change Video"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
             </LinearLayout>
         </HorizontalScrollView>
 

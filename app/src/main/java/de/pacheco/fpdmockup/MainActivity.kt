@@ -1,8 +1,7 @@
 package de.pacheco.fpdmockup
 
-import android.content.ContentResolver
-import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
@@ -17,11 +16,13 @@ import android.widget.RelativeLayout
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
   private val TAG = "FPDmockup"
@@ -34,46 +35,18 @@ class MainActivity : AppCompatActivity() {
   private var aspectRatioHeightInput: EditText? = null
   private var formatSwitch: Switch? = null
   private var playerView: PlayerView? = null
-  private var btn12_21_9: View? = null
-  private var btn12_16_9: View? = null
-  private var btn15_175_9: View? = null
-  private var btn12_175_9: View? = null
+  private var button_184_16_9: View? = null
+  private var button_195_16_9: View? = null
+  private var button_214_16_9: View? = null
+  private var button_195_21_9: View? = null
+  private var button_203_21_9: View? = null
   private var isTypingText = false
-  private var changeVideo: View? = null
-  private val sintel219: MediaItem =
-      MediaItem.fromUri(
-          Uri.Builder()
-              .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-              .path(R.raw.sintel219.toString())
-              .build()
-      )
-  private val sintel169 =
-      MediaItem.fromUri(
-          Uri.Builder()
-              .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-              .path(R.raw.sintel169.toString())
-              .build()
-      )
-  private val spring169: MediaItem =
-      MediaItem.fromUri(
-          Uri.Builder()
-              .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-              .path(R.raw.spring169.toString())
-              .build()
-      )
-  private val spring219 =
-      MediaItem.fromUri(
-          Uri.Builder()
-              .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-              .path(R.raw.spring219.toString())
-              .build()
-      )
-  private var mediaItem16_9: MediaItem = spring169
-  private var mediaItem21_9: MediaItem = spring219
-  private lateinit var darkenOverlay: View
+  private val base =
+      File(Environment.getExternalStorageDirectory(), "Android/media/de.pacheco.fpdmockup/videos")
+  private var mediaItem16_9 = getMediaItem("169stunning.mp4")
+  private var mediaItem21_9 = getMediaItem("219stunning.mp4")
+  private var darkenOverlay: View? = null
   private lateinit var brightnessSlider: com.google.android.material.slider.Slider
-
-  // Grenzen definieren
   private val MIN_ALPHA = 0.0f
   private val MAX_ALPHA = 0.9f
 
@@ -91,12 +64,11 @@ class MainActivity : AppCompatActivity() {
     aspectRatioWidthInput = findViewById<EditText?>(R.id.aspect_ratio_width_input)
     aspectRatioHeightInput = findViewById<EditText?>(R.id.aspect_ratio_height_input)
     formatSwitch = findViewById<Switch?>(R.id.format_switch)
-    btn12_21_9 = findViewById<View?>(R.id.button_12cm_21_9)
-    btn12_16_9 = findViewById<View?>(R.id.button_12cm_16_9)
-    btn15_175_9 = findViewById<View?>(R.id.button_15cm_17_5_9)
-    btn12_175_9 = findViewById<View?>(R.id.button_12cm_17_5_9)
-    btn12_175_9 = findViewById<View?>(R.id.button_12cm_17_5_9)
-    changeVideo = findViewById<View?>(R.id.changeVideo)
+    button_184_16_9 = findViewById<View?>(R.id.button_184_16_9)
+    button_195_16_9 = findViewById<View?>(R.id.button_195_16_9)
+    button_214_16_9 = findViewById<View?>(R.id.button_214_16_9)
+    button_195_21_9 = findViewById<View?>(R.id.button_195_21_9)
+    button_203_21_9 = findViewById<View?>(R.id.button_203_21_9)
     darkenOverlay = findViewById(R.id.darkenOverlay)
     brightnessSlider = findViewById(R.id.brightnessSlider)
 
@@ -106,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     setupButtons()
     setupTextWatchers()
     setupSwitch()
-    updateBoxSize(12.0, 21.0, 9.0)
+    updateBoxSize(22.9, 16.0, 9.0)
   }
 
   private fun startPlayer() {
@@ -134,12 +106,12 @@ class MainActivity : AppCompatActivity() {
 
   private fun setupButtons() {
     Log.d(TAG, "setupButtons called")
-    changeVideo?.setOnClickListener { _ -> changeVideo() }
     hideUi?.setOnClickListener { v: View? -> hideUi() }
-    btn12_21_9?.setOnClickListener { v: View? -> updateBoxSize(12.0, 21.0, 9.0) }
-    btn12_16_9?.setOnClickListener { v: View? -> updateBoxSize(12.0, 16.0, 9.0) }
-    btn15_175_9?.setOnClickListener { v: View? -> updateBoxSize(15.0, 17.5, 9.0) }
-    btn12_175_9?.setOnClickListener { v: View? -> updateBoxSize(12.0, 17.5, 9.0) }
+    button_184_16_9?.setOnClickListener { v: View? -> updateBoxSize(22.9, 16.0, 9.0) }
+    button_195_16_9?.setOnClickListener { v: View? -> updateBoxSize(24.3, 16.0, 9.0) }
+    button_214_16_9?.setOnClickListener { v: View? -> updateBoxSize(26.6, 16.0, 9.0) }
+    button_195_21_9?.setOnClickListener { v: View? -> updateBoxSize(19.5, 21.0, 9.0) }
+    button_203_21_9?.setOnClickListener { v: View? -> updateBoxSize(20.3, 21.0, 9.0) }
   }
 
   private fun hideUi() {
@@ -154,18 +126,6 @@ class MainActivity : AppCompatActivity() {
       hideUi?.setTextColor(ContextCompat.getColor(this, R.color.halfblack))
       hideUi?.text = "Show UI"
     }
-  }
-
-  private fun changeVideo() {
-    Log.d(TAG, "changeVideo called")
-    if (mediaItem16_9 == spring169) {
-      mediaItem16_9 = sintel169
-      mediaItem21_9 = sintel219
-    } else {
-      mediaItem16_9 = spring169
-      mediaItem21_9 = spring219
-    }
-    updatePlayer()
   }
 
   private fun setupTextWatchers() {
@@ -267,51 +227,50 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun Float.toOverlayAlpha(): Float {
-    // 0..100 -> 0.0..0.9
-    val ratio = this
-    return (MIN_ALPHA + (MAX_ALPHA - MIN_ALPHA) * ratio).coerceIn(MIN_ALPHA, MAX_ALPHA)
+    return (MIN_ALPHA + (MAX_ALPHA - MIN_ALPHA) * this).coerceIn(MIN_ALPHA, MAX_ALPHA)
   }
 
   private fun Float.toSliderValue(): Float {
-    // 0.0..0.9 -> 0..100
     val ratio = (this - MIN_ALPHA) / (MAX_ALPHA - MIN_ALPHA)
     return ratio.coerceIn(0f, 1f)
   }
 
-    private fun initBrightnessControl() {
-
-        // Startwert synchronisieren (aus Overlay lesen)
-        val startAlpha = darkenOverlay.alpha
-        brightnessSlider.value = startAlpha.toSliderValue()
-
-        // Listener: bei Änderung Overlay-Alpha setzen
-        brightnessSlider.addOnChangeListener { _, value, fromUser ->
-            if (fromUser) {
-                darkenOverlay.alpha = value.toOverlayAlpha()
-            } else {
-                darkenOverlay.alpha = value.toOverlayAlpha()
-            }
-        }
-
-        // Slider mit Player-Controller mit-ein-/ausblenden
-        playerView?.setControllerVisibilityListener(
-            PlayerView.ControllerVisibilityListener { visibility ->
-                if (visibility == PlayerView.VISIBLE) {
-                    brightnessSlider
-                        .animate()
-                        .alpha(1f)
-                        .setDuration(150)
-                        .withStartAction { brightnessSlider.visibility = View.VISIBLE }
-                        .start()
-                } else {
-                    brightnessSlider
-                        .animate()
-                        .alpha(0f)
-                        .setDuration(150)
-                        .withEndAction { brightnessSlider.visibility = View.GONE }
-                        .start()
-                }
-            }
-        )
+  private fun initBrightnessControl() {
+    Log.d(TAG, "initBrightnessControl called")
+    val startAlpha = darkenOverlay?.alpha
+    brightnessSlider.value = startAlpha ?: 0.0f.toSliderValue()
+    brightnessSlider.addOnChangeListener { _, value, fromUser ->
+      if (fromUser) {
+        darkenOverlay?.alpha = value.toOverlayAlpha()
+      } else {
+        darkenOverlay?.alpha = value.toOverlayAlpha()
+      }
     }
+    // Slider ein-/ausblenden
+    playerView?.setControllerVisibilityListener(
+        PlayerView.ControllerVisibilityListener { visibility ->
+          if (visibility == PlayerView.VISIBLE) {
+            brightnessSlider
+                .animate()
+                .alpha(1f)
+                .setDuration(150)
+                .withStartAction { brightnessSlider.visibility = View.VISIBLE }
+                .start()
+          } else {
+            brightnessSlider
+                .animate()
+                .alpha(0f)
+                .setDuration(150)
+                .withEndAction { brightnessSlider.visibility = View.GONE }
+                .start()
+          }
+        }
+    )
+  }
+
+  private fun getMediaItem(filename: String): MediaItem {
+    val file = File(base, filename)
+    if (!file.exists()) Log.e(TAG, "File $filename does not exist at ${file.path}")
+    return MediaItem.fromUri(file.toUri())
+  }
 }
