@@ -24,6 +24,24 @@
             android:layout_height="match_parent"
             tools:layout_height="50dp"
             tools:layout_width="50dp" />
+
+        <View
+            android:id="@+id/darkenOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FF000000"
+            android:alpha="0.6"
+            />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/brightnessSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:padding="16dp"
+            android:contentDescription="Videodunkelheit"
+            app:labelBehavior="gone" />
+
     </FrameLayout>
 
     <LinearLayout
