@@ -25,23 +25,6 @@
             tools:layout_height="50dp"
             tools:layout_width="50dp" />
 
-        <View
-            android:id="@+id/darkenOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FF000000"
-            android:alpha="0.6"
-            />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/brightnessSlider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:padding="16dp"
-            android:contentDescription="Videodunkelheit"
-            app:labelBehavior="gone" />
-
     </FrameLayout>
 
     <LinearLayout
@@ -50,16 +33,90 @@
         android:layout_alignParentBottom="true"
         android:fitsSystemWindows="true"
         android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="4dp">
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
 
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_184_16_9"
+                style="@style/SegmentedButton"
+                android:checkable="true"
+                android:checked="true"
+                android:text="18,4\u2033 16:9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_195_16_9"
+                style="@style/SegmentedButton"
+                android:text="19,5\u2033 16:9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_214_16_9"
+                style="@style/SegmentedButton"
+                android:text="21,4\u2033 16:9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_195_21_9"
+                style="@style/SegmentedButton"
+                android:text="19,5\u2033 21:9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_203_21_9"
+                style="@style/SegmentedButton"
+                android:text="20,3\u2033 21:9" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Video Format:"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/format_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/video_format_169"
+                    style="@style/SegmentedButton"
+                    android:text="16:9"
+                    android:checkable="true"
+                    android:checked="true"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/video_format_219"
+                    style="@style/SegmentedButton"
+                    android:text="21:9"
+                    android:checkable="true" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
         <Button
             android:id="@+id/hideUI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#00000000"
             android:text="Hide UI"
-            android:textColor="@color/white"
+            android:textColor="@color/halfblack"
             android:textSize="8sp" />
 
         <LinearLayout
@@ -67,7 +124,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+
+
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/ui"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="center_vertical"-->
+            <!--                android:orientation="horizontal">-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,94 +208,5 @@
                 android:textColor="@color/white"
                 android:textSize="8sp" />
         </LinearLayout>
-
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:scrollbars="horizontal">
-
-            <LinearLayout
-                android:id="@+id/ui2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-
-                <Button
-                    android:id="@+id/button_184_16_9"
-                    style="@style/SmallButtonTransparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00000000"
-                    android:text="18,4\u2033 16:9"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <Button
-                    android:id="@+id/button_195_16_9"
-                    style="@style/SmallButtonTransparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00000000"
-                    android:text="19,5\u2033 16:9"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <Button
-                    android:id="@+id/button_214_16_9"
-                    style="@style/SmallButtonTransparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00000000"
-                    android:text="21,4\u2033 16:9"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <Button
-                    android:id="@+id/button_195_21_9"
-                    style="@style/SmallButtonTransparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00000000"
-                    android:text="19,5\u2033 21:9"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <Button
-                    android:id="@+id/button_203_21_9"
-                    style="@style/SmallButtonTransparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00000000"
-                    android:text="20,3\u2033 21:9"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="4dp"
-                    android:text="Video Format:"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <Switch
-                    android:id="@+id/format_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="16:9"
-                    android:scaleX="0.7"
-                    android:scaleY="0.7"
-                    android:textColor="@color/white"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
     </LinearLayout>
-
 </RelativeLayout>
