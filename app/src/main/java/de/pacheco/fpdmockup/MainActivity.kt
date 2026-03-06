@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
   private var aspectRatioHeightInput: EditText? = null
   private var formatSwitch: MaterialButtonToggleGroup? = null
   private var playerView: PlayerView? = null
+  private var video_format_169: View? = null
+  private var video_format_219: View? = null
   private var button_184_16_9: View? = null
   private var button_195_16_9: View? = null
   private var button_214_16_9: View? = null
@@ -61,6 +63,8 @@ class MainActivity : AppCompatActivity() {
     aspectRatioWidthInput = findViewById<EditText?>(R.id.aspect_ratio_width_input)
     aspectRatioHeightInput = findViewById<EditText?>(R.id.aspect_ratio_height_input)
     formatSwitch = findViewById<MaterialButtonToggleGroup?>(R.id.format_switch)
+    video_format_169 = findViewById<View?>(R.id.video_format_169)
+    video_format_219 = findViewById<View?>(R.id.video_format_219)
     button_184_16_9 = findViewById<View?>(R.id.button_184_16_9)
     button_195_16_9 = findViewById<View?>(R.id.button_195_16_9)
     button_214_16_9 = findViewById<View?>(R.id.button_214_16_9)
@@ -71,7 +75,6 @@ class MainActivity : AppCompatActivity() {
     getMetrics()
     setupButtons()
     setupTextWatchers()
-    setupSwitch()
     updateBoxSize(22.9, 16.0, 9.0)
   }
 
@@ -100,12 +103,32 @@ class MainActivity : AppCompatActivity() {
 
   private fun setupButtons() {
     Log.d(TAG, "setupButtons called")
+    formatSwitch?.addOnButtonCheckedListener { _, checkedId, isChecked ->
+      if (!isChecked) return@addOnButtonCheckedListener
+      val is169 = (checkedId == R.id.video_format_169)
+      updatePlayer(is169)
+    }
+    button_184_16_9?.setOnClickListener { _: View? ->
+      video_format_169?.performClick()
+      updateBoxSize(22.9, 16.0, 9.0)
+    }
+    button_195_16_9?.setOnClickListener { _: View? ->
+      video_format_169?.performClick()
+      updateBoxSize(24.3, 16.0, 9.0)
+    }
+    button_214_16_9?.setOnClickListener { _: View? ->
+      video_format_169?.performClick()
+      updateBoxSize(26.6, 16.0, 9.0)
+    }
+    button_195_21_9?.setOnClickListener { _: View? ->
+      video_format_219?.performClick()
+      updateBoxSize(19.5, 21.0, 9.0)
+    }
+    button_203_21_9?.setOnClickListener { _: View? ->
+      video_format_219?.performClick()
+      updateBoxSize(20.3, 21.0, 9.0)
+    }
     hideUi?.setOnClickListener { v: View? -> toggleUiVisibility() }
-    button_184_16_9?.setOnClickListener { _: View? -> updateBoxSize(22.9, 16.0, 9.0) }
-    button_195_16_9?.setOnClickListener { _: View? -> updateBoxSize(24.3, 16.0, 9.0) }
-    button_214_16_9?.setOnClickListener { _: View? -> updateBoxSize(26.6, 16.0, 9.0) }
-    button_195_21_9?.setOnClickListener { _: View? -> updateBoxSize(19.5, 21.0, 9.0) }
-    button_203_21_9?.setOnClickListener { _: View? -> updateBoxSize(20.3, 21.0, 9.0) }
   }
 
   private fun toggleUiVisibility() {
@@ -155,16 +178,6 @@ class MainActivity : AppCompatActivity() {
     dpi?.setText(densityDpi.toString())
   }
 
-  private fun setupSwitch() {
-    Log.d(TAG, "setupSwitch called")
-    formatSwitch
-        ?.addOnButtonCheckedListener { _, checkedId, isChecked ->
-          if (!isChecked) return@addOnButtonCheckedListener
-          val is169 = (checkedId == R.id.video_format_169)
-          updatePlayer(is169)
-        }
-  }
-
   private fun updateBoxFromInputs() {
     Log.d(TAG, "updateBoxFromInputs called")
     try {
@@ -205,9 +218,9 @@ class MainActivity : AppCompatActivity() {
     val currentPosition = player?.currentPosition ?: 0L
     val wasPlaying = player?.isPlaying ?: true
     if (is169) {
-        player?.setMediaItem(mediaItem16_9)
+      player?.setMediaItem(mediaItem16_9)
     } else {
-        player?.setMediaItem(mediaItem21_9)
+      player?.setMediaItem(mediaItem21_9)
     }
     player?.prepare()
     player?.seekTo(currentPosition)

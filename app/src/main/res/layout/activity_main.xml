@@ -27,19 +27,32 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:fitsSystemWindows="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Display"
+            android:textColor="@color/lightgrey"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@id/segmented"
+            app:layout_constraintEnd_toEndOf="@id/segmented"
+            app:layout_constraintStart_toStartOf="@id/segmented" />
 
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/segmented"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:selectionRequired="true"
             app:singleSelection="true">
 
@@ -72,52 +85,43 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:orientation="vertical">
+            android:text="Video"
+            android:textColor="@color/lightgrey"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@id/format_switch"
+            app:layout_constraintEnd_toEndOf="@id/format_switch"
+            app:layout_constraintStart_toStartOf="@id/format_switch" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Video Format:"
-                android:textColor="@color/white"
-                android:textSize="8sp" />
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/format_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:selectionRequired="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/video_format_169"
-                    style="@style/SegmentedButton"
-                    android:text="16:9"
-                    android:checkable="true"
-                    android:checked="true"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/video_format_219"
-                    style="@style/SegmentedButton"
-                    android:text="21:9"
-                    android:checkable="true" />
-
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        </LinearLayout>
-        <Button
-            android:id="@+id/hideUI"
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/format_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#00000000"
-            android:text="Hide UI"
-            android:textColor="@color/halfblack"
-            android:textSize="8sp" />
+            app:layout_constraintBottom_toBottomOf="@id/segmented"
+            app:layout_constraintStart_toEndOf="@+id/segmented"
+            app:selectionRequired="true"
+            app:singleSelection="true"
+            android:layout_marginStart="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/video_format_169"
+                style="@style/SegmentedButton"
+                android:checkable="true"
+                android:checked="true"
+                android:text="16:9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/video_format_219"
+                style="@style/SegmentedButton"
+                android:checkable="true"
+                android:text="21:9" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
 
         <LinearLayout
             android:id="@+id/ui"
@@ -125,16 +129,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="invisible">
-
-
-
-            <!--            <LinearLayout-->
-            <!--                android:id="@+id/ui"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:gravity="center_vertical"-->
-            <!--                android:orientation="horizontal">-->
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/hideUI">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -208,5 +204,16 @@
                 android:textColor="@color/white"
                 android:textSize="8sp" />
         </LinearLayout>
-    </LinearLayout>
+
+        <Button
+            android:id="@+id/hideUI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00000000"
+            android:text="Show UI"
+            android:textColor="@color/halfblack"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
